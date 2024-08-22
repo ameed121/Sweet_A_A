@@ -6,6 +6,7 @@ import org.junit.Assert;
 import java.util.List;
 import java.util.Map;
 
+
 public class login_Steps {
 
     private DataBase dataBase;
@@ -17,10 +18,12 @@ public class login_Steps {
     private boolean isSupplierDashboardDisplayed;
     private String displayedMessage;
 
+
     @Given("the database is initialized")
     public void the_database_is_initialized() {
         dataBase = new DataBase();
     }
+
 
     @Given("the following users are registered:")
     public void the_following_users_are_registered(io.cucumber.datatable.DataTable dataTable) {

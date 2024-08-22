@@ -1,15 +1,17 @@
 package GUI;
 
 import javax.swing.JOptionPane;
-import Package_Sweet.DataBase;
-import Package_Sweet.User;
-import Package_Sweet.Owner;
-import Package_Sweet.Supplier;
+
+import Package_Sweet.*;
+
+import java.util.Arrays;
 
 
 public class Login_GUI extends javax.swing.JFrame {
 
     private DataBase dataBase;
+    private Email_Notification emailNotification;
+
 
 
     public Login_GUI(DataBase dataBase) {
@@ -17,8 +19,15 @@ public class Login_GUI extends javax.swing.JFrame {
         initComponents();
     }
 
-    @SuppressWarnings("unchecked")
 
+
+    public void setEmailNotification(Email_Notification emailNotification) {
+        this.emailNotification = emailNotification;
+    }
+
+
+
+    @SuppressWarnings("unchecked")
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">
     private void initComponents() {
@@ -119,7 +128,6 @@ public class Login_GUI extends javax.swing.JFrame {
     }// </editor-fold>
 
 
-
     private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {
         String username = usernameField.getText();
         String password = new String(passwordField.getPassword());
@@ -128,6 +136,7 @@ public class Login_GUI extends javax.swing.JFrame {
         if (username.equals("admin") && password.equals("admin")) {
             dataBase.logedAdmin = true;
             JOptionPane.showMessageDialog(this, "Welcome, Admin!", "Login Success", JOptionPane.INFORMATION_MESSAGE);
+
             new Admin_GUI(dataBase).setVisible(true);  // Open Admin Frame with access to DataBase
             this.dispose();  // Close Login Frame
             return;
@@ -138,6 +147,7 @@ public class Login_GUI extends javax.swing.JFrame {
             if (user.getName().equals(username) && user.getPassword().equals(password)) {
                 dataBase.logedUser = user;  // Log the user in
                 JOptionPane.showMessageDialog(this, "Welcome, User!", "Login Success", JOptionPane.INFORMATION_MESSAGE);
+
                 new User_GUI(dataBase, user).setVisible(true);  // Open User Frame with access to DataBase
                 this.dispose();  // Close Login Frame
                 return;
@@ -149,6 +159,7 @@ public class Login_GUI extends javax.swing.JFrame {
             if (owner.getName().equals(username) && owner.getPassword().equals(password)) {
                 dataBase.logedOwner = owner;  // Log the owner in
                 JOptionPane.showMessageDialog(this, "Welcome, Store Owner!", "Login Success", JOptionPane.INFORMATION_MESSAGE);
+
                 new Owner_GUI(dataBase, owner).setVisible(true);  // Open Owner Frame with access to DataBase
                 this.dispose();  // Close Login Frame
                 return;
@@ -160,6 +171,7 @@ public class Login_GUI extends javax.swing.JFrame {
             if (supplier.getName().equals(username) && supplier.getPassword().equals(password)) {
                 dataBase.logedSupplier = supplier;  // Log the supplier in
                 JOptionPane.showMessageDialog(this, "Welcome, Supplier!", "Login Success", JOptionPane.INFORMATION_MESSAGE);
+
                 new Supplier_GUI(dataBase, supplier).setVisible(true);  // Open Supplier Frame with access to DataBase
                 this.dispose();  // Close Login Frame
                 return;
@@ -169,6 +181,9 @@ public class Login_GUI extends javax.swing.JFrame {
         // If no match found, show error
         JOptionPane.showMessageDialog(this, "Invalid username or password.", "Login Error", JOptionPane.ERROR_MESSAGE);
     }
+
+    
+
 
     private void signupButtonActionPerformed(java.awt.event.ActionEvent evt) {
         // Open the Sign Up Frame

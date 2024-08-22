@@ -3,22 +3,36 @@ package GUI;
 import javax.swing.JOptionPane;
 
 import Package_Sweet.DataBase;
+import Package_Sweet.Email_Notification;
 import Package_Sweet.SignUp;
 
-/**
- * SignUpFrame class represents the sign-up form for users, store owners, and suppliers.
- */
+
 public class SignUp_GUI extends javax.swing.JFrame {
 
     private DataBase dataBase;
     private SignUp signUp;
+    private Email_Notification emailNotification;
+
+   public String email;
+
 
 
 
     public SignUp_GUI(DataBase dataBase) {
+
         this.dataBase = dataBase;
         this.signUp = new SignUp(dataBase);
+
+        emailNotification = new Email_Notification();
+        setEmailNotification(emailNotification);
+
         initComponents();
+    }
+
+
+
+    public void setEmailNotification(Email_Notification emailNotification) {
+        this.emailNotification = emailNotification;
     }
 
 
@@ -178,7 +192,7 @@ public class SignUp_GUI extends javax.swing.JFrame {
     private void signUpButtonActionPerformed(java.awt.event.ActionEvent evt) {
         String username = usernameField.getText();
         String password = new String(passwordField.getPassword());
-        String email = emailField.getText();
+        email = emailField.getText();
         String city = cityField.getText();
         String role = getSelectedRole();
 
@@ -198,14 +212,24 @@ public class SignUp_GUI extends javax.swing.JFrame {
         }
 
         if (success) {
+
+          //  if (emailNotification != null) {
+                emailNotification.sendEmail(email, "Welcome to Sweet System", "Thank you for Signing UP!    (. ❛ ᴗ ❛.) ");
+          //  }
+
             JOptionPane.showMessageDialog(this, "Success: " + signUp.getMessage(), "Success", JOptionPane.INFORMATION_MESSAGE);
+
             Login_GUI loginFrame = new Login_GUI(dataBase);
             loginFrame.setVisible(true);
             this.dispose();
+
         } else {
             JOptionPane.showMessageDialog(this, "Error: " + signUp.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
+
+
+    
 
     private String getSelectedRole() {
         if (userToggle.isSelected()) {
@@ -217,6 +241,9 @@ public class SignUp_GUI extends javax.swing.JFrame {
         }
         return null;
     }
+
+
+
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -253,17 +280,17 @@ public class SignUp_GUI extends javax.swing.JFrame {
 
 
     private javax.swing.ButtonGroup buttonGroup1;
-    private javax.swing.JTextField cityField;
-    private javax.swing.JTextField emailField;
+    public javax.swing.JTextField cityField;
+    public javax.swing.JTextField emailField;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JToggleButton ownerToggle;
-    private javax.swing.JPasswordField passwordField;
-    private javax.swing.JButton signUpButton;
+    public javax.swing.JPasswordField passwordField;
+    public javax.swing.JButton signUpButton;
     private javax.swing.JToggleButton supplierToggle;
     private javax.swing.JToggleButton userToggle;
-    private javax.swing.JTextField usernameField;
+    public javax.swing.JTextField usernameField;
 }
